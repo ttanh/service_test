@@ -1,7 +1,32 @@
 version: "2"
 
 services:
+  mysql:
+    restart: always
+    image: mysql:5.7
+    container_name: app-mysql
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 123456
+      MYSQL_DATABASE: service_db
   app:
-    image: golang:1.6.1-alpine
+    build: .
     volumes:
-      - .:/go/src/go-with-compose
+      - .:/go/src/service_test
+    ports:
+      - 9000:9000
+    environment:
+      GOPATH: /go:/go/src/service_test
+      DB_USER: root
+      DB_PASS: 123456
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: service_db
+      DB_LOG_MODE: 0      #0: false, 1: true
+      API_PORT: 9000
+    depends_on:
+      - mysql
+    command: go run ./src/service_test/main.go

@@ -1,21 +1,27 @@
 package model
 
-type TransactionInfo struct {
-	CustomerId    string `json:"customer_id" valid:"required"`
-	CustomerName  string `json:"customer_name" valid:"length(0|10)"`
-	Token         string `json:"token"`
-	DateTime      int64  `json:"date_time" valid:"IsTime"`
-	TransactionId string `json:"transaction_id"`
-}
+import "time"
 
 type ResponseType struct {
-	DateTime      int64  `json:"date_time"`
+	DateTime      time.Time  `json:"date_time"`
 	TransactionId string `json:"transaction_id"`
 	Code          int    `json:"code"`
 	Description   string `json:"description"`
 }
 
 type Token struct {
-	Id    int    `json:"id"`
+	ID    int    `json:"id" gorm:"primary_key;AUTO_INCREMENT"`
 	Value string `json:"value"`
+}
+
+func (t *Token) Insert() error {
+	return db.Create(t).Error
+}
+
+func CheckToken(tokenValue string) bool {
+	var token Token
+	if err := db.Where("value = ?", tokenValue).First(&token).Error; err != nil {
+		return false
+	}
+	return true
 }
