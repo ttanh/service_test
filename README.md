@@ -26,6 +26,15 @@ DB_PORT: 3306           #port
 DB_NAME: service_db     # database name
 DB_LOG_MODE: 0          #config for mysql log mode, 0: false, 1: true
 ```
+## Used Library
+```
+github.com/jinzhu/gorm
+github.com/go-sql-driver/mysql
+github.com/sirupsen/logrus
+github.com/gin-gonic/gin
+gopkg.in/asaskevich/govalidator.v4
+```
+
 ## APIS
 Url base: http://localhost:9000
 
