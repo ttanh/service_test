@@ -3,9 +3,9 @@ package model
 import "time"
 
 const (
-	STATUS_INSERT = 1
-	STATUS_DONE = 2
-	STATUS_REPLY = 3
+	StatusInsert = 1
+	StatusDone   = 2
+	StatusReply  = 3
 )
 
 type Transaction struct {
@@ -24,19 +24,19 @@ func (t *Transaction) Insert() (err error) {
 
 func (t *Transaction) UpdateStatusDone() (err error) {
 	t.DateTime = time.Now()
-	if err = db.Model(t).Updates(map[string]interface{}{"status": STATUS_DONE, "date_time": t.DateTime.UTC()}).Error; err != nil {
+	if err = db.Model(t).Updates(map[string]interface{}{"status": StatusDone, "date_time": t.DateTime.UTC()}).Error; err != nil {
 		return err
 	}
 	return nil
 }
 
 func (t *Transaction) CheckDoneAndUpdateReply() error {
-	err := db.Where("transaction_id = ? AND status = ?", t.TransactionId, STATUS_DONE).First(&t).Error
+	err := db.Where("transaction_id = ? AND status = ?", t.TransactionId, StatusDone).First(&t).Error
 	if err != nil {
 		return err
 	}
 	t.DateTime = time.Now()
-	if err = db.Model(t).Updates(map[string]interface{}{"status": STATUS_REPLY, "date_time": t.DateTime.UTC()}).Error; err != nil {
+	if err = db.Model(t).Updates(map[string]interface{}{"status": StatusReply, "date_time": t.DateTime.UTC()}).Error; err != nil {
 		return err
 	}
 	return nil

@@ -1,8 +1,8 @@
 package model
 
 import (
-	"github.com/jinzhu/gorm"
 	"fmt"
+	"github.com/jinzhu/gorm"
 	"os"
 )
 
@@ -21,7 +21,6 @@ func ConnectDB() (*gorm.DB, error) {
 	db.LogMode(os.Getenv("DB_LOG_MODE") == "1")
 	return db, err
 }
-
 
 func InitDB() {
 	db.AutoMigrate(&Token{})

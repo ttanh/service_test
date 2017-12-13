@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/jinzhu/gorm"
-	"service_test/model"
-	_ "github.com/go-sql-driver/mysql"
-	"os"
-	"github.com/sirupsen/logrus"
 	"github.com/gin-gonic/gin"
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/jinzhu/gorm"
+	"github.com/sirupsen/logrus"
+	"os"
 	"service_test/handler"
+	"service_test/model"
 )
 
 var db *gorm.DB
