@@ -50,7 +50,9 @@ ErrorStatusDone = -4
 ### 1. POST /token : Create token
 #### Response
 ```
-SPi7s4I4Rq79zwxpy8hv
+{
+    "value": "SPi7s4I4Rq79zwxpy8hv"
+}
 ```
 
 ### 2. POST /service1
